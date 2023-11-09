@@ -4,7 +4,7 @@ Zephy's Prompt Machine
 ![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/e687d601-2268-4dc4-a133-eecdaacff2c4)
 
 
-My custom node works very basic, it can replace a `__file__` with any random entry of the filename (without extension).
+My custom node works very basic, it can replace a `__file__` with any random entry of a filename inside the `blocks` folder (without extension).
 It does however need a re-init trigger to make sure it will cycle through a new prompt, the way I do this is 
 by laying down two modules where one is just a randomizer and then converts the number to a string for the trigger input.
 
