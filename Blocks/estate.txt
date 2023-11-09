@@ -1,0 +1,20 @@
+House
+Mansion
+Temple
+Mosque
+Church
+Synagogue
+Cathedral
+Skyscraper
+Castle
+Chalet
+Cottage
+Lodge
+Barn
+Warehouse
+Factory
+Office building
+Apartment building
+Hotel
+School
+Hospital
