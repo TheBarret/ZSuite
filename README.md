@@ -7,7 +7,7 @@ Zephy's Prompt Machine
 My custom node works very basic, it can replace a `__file__` with any random entry of a filename inside the `blocks` folder (without extension).
 It does however need a re-init trigger to make sure it will cycle through a new prompt, the way I do this is 
 by laying down two modules where one is just a randomizer and then converts the number to a string for the trigger input.
-The `file_list` is still a feature idea I want to implement, because right now you have to go into the folder to see what is
+The `file_list` is still a unfinished future idea I want to implement, because right now you have to go into the folder to see what is
 available and for me that is an extra step that is not needed for the end-user in my opinion, it should be a `Click & Play` experience in the end.
 
 
