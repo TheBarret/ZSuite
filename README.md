@@ -1,42 +1,120 @@
 # ZPM
-Zephy's Prompt Machine
 
-![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/e687d601-2268-4dc4-a133-eecdaacff2c4)
-
-
-My custom node works very basic, it can replace a `__file__` with any random entry of a filename inside the `blocks` folder (without extension).
-It does however need a re-init trigger to make sure it will cycle through a new prompt, the way I do this is 
-by laying down two modules where one is just a randomizer and then converts the number to a string for the trigger input.
-The `file_list` is still a unfinished future idea I want to implement, because right now you have to go into the folder to see what is
-available and for me that is an extra step that is not needed for the end-user in my opinion, it should be a `Click & Play` experience in the end.
+![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/50782d68-e92a-465f-ac5b-91893218c0d2)
 
 
-ComfyUI Workflow Demo preset:
+V1.0 - Initial Release
+v1.1 - Added Seed Modifier
+
+
+ComfyUI Workflow preset (from screenshot):
 ```
 {
-  "last_node_id": 27,
-  "last_link_id": 45,
+  "last_node_id": 26,
+  "last_link_id": 32,
   "nodes": [
     {
-      "id": 3,
-      "type": "LoadImageWithMetadata",
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
       "pos": [
-        30,
-        190
+        20,
+        50
       ],
-      "size": {
-        "0": 320,
-        "1": 460
-      },
+      "size": [
+        315,
+        98
+      ],
       "flags": {},
       "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "mw4_crs15.ckpt"
+      ],
+      "locked": true
+    },
+    {
+      "id": 9,
+      "type": "VAELoader",
+      "pos": [
+        420,
+        -60
+      ],
+      "size": [
+        310,
+        60
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            10,
+            17
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "Anything-V3.0.vae.safetensors"
+      ],
+      "locked": true
+    },
+    {
+      "id": 2,
+      "type": "LoadImageWithMetadata",
+      "pos": [
+        20,
+        190
+      ],
+      "size": [
+        320,
+        450
+      ],
+      "flags": {},
+      "order": 2,
       "mode": 0,
       "outputs": [
         {
           "name": "image",
           "type": "IMAGE",
           "links": [
-            12
+            9
           ],
           "shape": 3,
           "slot_index": 0
@@ -57,17 +135,18 @@ ComfyUI Workflow Demo preset:
         {
           "name": "negative",
           "type": "STRING",
-          "links": [
-            15
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 3
         },
         {
           "name": "seed",
           "type": "INT",
-          "links": null,
-          "shape": 3
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 4
         },
         {
           "name": "width",
@@ -98,253 +177,53 @@ ComfyUI Workflow Demo preset:
         "Node name for S&R": "LoadImageWithMetadata"
       },
       "widgets_values": [
-        "00236-3358215029.png",
+        "00041-264446564.png",
         "image"
-      ]
-    },
-    {
-      "id": 2,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        30,
-        50
-      ],
-      "size": {
-        "0": 320,
-        "1": 100
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            28
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            25
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            13
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "mw4_crs15.ckpt"
-      ]
-    },
-    {
-      "id": 10,
-      "type": "PreviewImage",
-      "pos": [
-        360,
-        400
-      ],
-      "size": {
-        "0": 260,
-        "1": 250
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 10
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 17,
-      "type": "Number to String",
-      "pos": [
-        520,
-        180
-      ],
-      "size": {
-        "0": 210,
-        "1": 26
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "number",
-          "type": "NUMBER",
-          "link": 24
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            23
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Signal",
-      "properties": {
-        "Node name for S&R": "Number to String"
-      },
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 16,
-      "type": "Number Counter",
-      "pos": [
-        390,
-        180
-      ],
-      "size": {
-        "0": 315,
-        "1": 194
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "reset_bool",
-          "type": "NUMBER",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "number",
-          "type": "NUMBER",
-          "links": [
-            24
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "float",
-          "type": "FLOAT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "int",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "title": "Counter",
-      "properties": {
-        "Node name for S&R": "Number Counter"
-      },
-      "widgets_values": [
-        "integer",
-        "increment",
-        0,
-        1024,
-        1
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 22,
-      "type": "KSampler",
-      "pos": [
-        1270,
-        50
-      ],
-      "size": [
-        310,
-        260
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 38
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 40
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 41
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 43
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            39
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        786428309311991,
-        "randomize",
-        6,
-        6,
-        "dpmpp_sde_gpu",
-        "normal",
-        0.5
       ],
       "locked": true
     },
     {
-      "id": 7,
+      "id": 15,
+      "type": "Reroute",
+      "pos": [
+        770,
+        70
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            23
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": true,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 6,
       "type": "Text to Conditioning",
       "pos": [
-        640,
-        100
+        770,
+        120
       ],
       "size": {
         "0": 210,
@@ -353,18 +232,18 @@ ComfyUI Workflow Demo preset:
       "flags": {
         "collapsed": true
       },
-      "order": 8,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 27
+          "link": 3
         },
         {
           "name": "text",
           "type": "STRING",
-          "link": 16,
+          "link": 5,
           "widget": {
             "name": "text"
           }
@@ -375,307 +254,26 @@ ComfyUI Workflow Demo preset:
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            8,
-            41
+            7
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
+      "title": "Conditioning",
       "properties": {
         "Node name for S&R": "Text to Conditioning"
       },
       "widgets_values": [
         ""
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 5,
-      "type": "Zephys",
-      "pos": [
-        640,
-        170
-      ],
-      "size": [
-        290,
-        160
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "trigger",
-          "type": "STRING",
-          "link": 23,
-          "widget": {
-            "name": "trigger"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            20,
-            30
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "Zephys"
-      },
-      "widgets_values": [
-        "__preamble__ zombie, drippy, bloody, fine details, micro details, filigree, __punks__ theme, cinematic lighting, (embedding:emb-rrf2:0.3)",
-        "",
-        ""
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 4,
-      "type": "KSampler",
-      "pos": [
-        950,
-        50
-      ],
-      "size": [
-        315,
-        262
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 29
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 4
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 8
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 14
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            42
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        719074690849216,
-        "randomize",
-        6,
-        6,
-        "dpmpp_sde_gpu",
-        "normal",
-        0.35000000000000003
-      ],
-      "locked": true
-    },
-    {
-      "id": 25,
-      "type": "LatentUpscaleBy",
-      "pos": [
-        1270,
-        360
-      ],
-      "size": [
-        310,
-        80
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 42
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            43
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LatentUpscaleBy"
-      },
-      "widgets_values": [
-        "nearest-exact",
-        1.3
       ]
     },
     {
-      "id": 11,
-      "type": "VAELoader",
-      "pos": [
-        950,
-        360
-      ],
-      "size": [
-        310,
-        80
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            11
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAELoader"
-      },
-      "widgets_values": [
-        "Anything-V3.0.vae.safetensors"
-      ]
-    },
-    {
-      "id": 9,
-      "type": "VAEDecodeTiled",
-      "pos": [
-        950,
-        480
-      ],
-      "size": [
-        310,
-        80
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 39
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            10
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecodeTiled"
-      },
-      "widgets_values": [
-        512
-      ]
-    },
-    {
-      "id": 13,
-      "type": "VAEEncodeTiled",
-      "pos": [
-        450,
-        120
-      ],
-      "size": {
-        "0": 315,
-        "1": 78
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "pixels",
-          "type": "IMAGE",
-          "link": 12
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 13
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            14
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEEncodeTiled"
-      },
-      "widgets_values": [
-        512
-      ]
-    },
-    {
-      "id": 6,
+      "id": 7,
       "type": "Text to Conditioning",
       "pos": [
-        640,
-        130
+        800,
+        140
       ],
       "size": {
         "0": 210,
@@ -690,12 +288,12 @@ ComfyUI Workflow Demo preset:
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 26
+          "link": 4
         },
         {
           "name": "text",
           "type": "STRING",
-          "link": 20,
+          "link": 6,
           "widget": {
             "name": "text"
           }
@@ -706,91 +304,129 @@ ComfyUI Workflow Demo preset:
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            4,
-            40
+            8
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
+      "title": "Conditioning",
       "properties": {
         "Node name for S&R": "Text to Conditioning"
       },
       "widgets_values": [
         ""
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
+      ]
     },
     {
-      "id": 14,
-      "type": "EmbeddingPicker",
+      "id": 19,
+      "type": "Int to float",
       "pos": [
-        640,
-        540
+        750,
+        630
       ],
-      "size": [
-        290,
-        110
-      ],
-      "flags": {
-        "collapsed": false
+      "size": {
+        "0": 210,
+        "1": 50
       },
-      "order": 4,
+      "flags": {
+        "collapsed": true
+      },
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
-          "name": "text",
-          "type": "STRING",
-          "link": 15,
+          "name": "Value",
+          "type": "INT",
+          "link": 24,
           "widget": {
-            "name": "text"
+            "name": "Value"
           }
         }
       ],
       "outputs": [
         {
-          "name": "text",
-          "type": "STRING",
+          "name": "FLOAT",
+          "type": "FLOAT",
           "links": [
-            16
+            25
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
-      "title": "Negative",
+      "title": "Value",
       "properties": {
-        "Node name for S&R": "EmbeddingPicker"
+        "Node name for S&R": "Int to float"
       },
       "widgets_values": [
-        "easynegative.safetensors",
-        1,
-        true,
-        ""
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
+        1
+      ]
     },
     {
-      "id": 19,
+      "id": 20,
+      "type": "floatToText _O",
+      "pos": [
+        850,
+        630
+      ],
+      "size": {
+        "0": 210,
+        "1": 50
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "link": 25,
+          "widget": {
+            "name": "float"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            26
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "String",
+      "properties": {
+        "Node name for S&R": "floatToText _O"
+      },
+      "widgets_values": [
+        0
+      ]
+    },
+    {
+      "id": 21,
       "type": "ShowText|pysssss",
       "pos": [
-        640,
-        370
+        740,
+        600
       ],
       "size": [
-        290,
-        130
+        220,
+        110
       ],
       "flags": {},
-      "order": 11,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
           "name": "text",
           "type": "STRING",
-          "link": 30,
+          "link": 26,
           "widget": {
             "name": "text"
           }
@@ -804,27 +440,575 @@ ComfyUI Workflow Demo preset:
           "shape": 6
         }
       ],
-      "title": "Debugger",
+      "title": "Seed",
       "properties": {
         "Node name for S&R": "ShowText|pysssss"
       },
       "widgets_values": [
-        "precisely rendered zombie, drippy, bloody, fine details, micro details, filigree, Nanopunk theme, cinematic lighting, (embedding:emb-rrf2:0.3)"
+        "1090458469.0"
       ],
-      "color": "#232",
-      "bgcolor": "#353"
+      "color": "#223",
+      "bgcolor": "#335",
+      "locked": true
     },
     {
-      "id": 18,
-      "type": "LoraLoader",
+      "id": 10,
+      "type": "VAEEncodeTiled",
       "pos": [
-        360,
-        230
+        770,
+        170
+      ],
+      "size": {
+        "0": 210,
+        "1": 80
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 9
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            27
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncodeTiled"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 22,
+      "type": "LatentUpscaleBy",
+      "pos": [
+        770,
+        200
       ],
       "size": {
         "0": 260,
-        "1": 130
+        "1": 90
       },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            28
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Upscaler",
+      "properties": {
+        "Node name for S&R": "LatentUpscaleBy"
+      },
+      "widgets_values": [
+        "nearest-exact",
+        1.3
+      ]
+    },
+    {
+      "id": 13,
+      "type": "PreviewImage",
+      "pos": [
+        970,
+        450
+      ],
+      "size": [
+        270,
+        260
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 19
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "locked": true
+    },
+    {
+      "id": 8,
+      "type": "KSampler",
+      "pos": [
+        970,
+        50
+      ],
+      "size": [
+        280,
+        260
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 12
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 28
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 23,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        998684823200100,
+        "randomize",
+        6,
+        6,
+        "dpmpp_sde_gpu",
+        "normal",
+        0.45
+      ],
+      "locked": true
+    },
+    {
+      "id": 12,
+      "type": "Reroute",
+      "pos": [
+        770,
+        310
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": true,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 11,
+      "type": "VAEDecodeTiled",
+      "pos": [
+        850,
+        340
+      ],
+      "size": {
+        "0": 280,
+        "1": 80
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 15
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeTiled"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmbeddingPicker",
+      "pos": [
+        420,
+        410
+      ],
+      "size": [
+        310,
+        150
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            6
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Negative",
+      "properties": {
+        "Node name for S&R": "EmbeddingPicker"
+      },
+      "widgets_values": [
+        "ng_deepnegative_v1_75t.pt",
+        1,
+        true,
+        "embedding:easynegative"
+      ],
+      "color": "#322",
+      "bgcolor": "#533",
+      "locked": true
+    },
+    {
+      "id": 25,
+      "type": "Number to Text",
+      "pos": [
+        250,
+        680
+      ],
+      "size": {
+        "0": 140,
+        "1": 30
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "number",
+          "type": "NUMBER",
+          "link": 29
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            30
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Signal",
+      "properties": {
+        "Node name for S&R": "Number to Text"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 24,
+      "type": "Number Counter",
+      "pos": [
+        120,
+        680
+      ],
+      "size": {
+        "0": 210,
+        "1": 194
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reset_bool",
+          "type": "NUMBER",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "number",
+          "type": "NUMBER",
+          "links": [
+            29
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "float",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "int",
+          "type": "INT",
+          "links": null,
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "title": "Counter",
+      "properties": {
+        "Node name for S&R": "Number Counter"
+      },
+      "widgets_values": [
+        "integer",
+        "increment",
+        0,
+        2048,
+        1
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 23,
+      "type": "ZSUITE_PROMPTER",
+      "pos": [
+        420,
+        750
+      ],
+      "size": [
+        310,
+        120
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "trigger",
+          "type": "STRING",
+          "link": 30,
+          "widget": {
+            "name": "trigger"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            31,
+            32
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ZSUITE_PROMPTER"
+      },
+      "widgets_values": [
+        "__preamble__ minotaur zombie inspired by __artist__, (embedding:dishonored-portrait-styles:0.7), (embedding:emb-rrf2:0.7)",
+        ""
+      ],
+      "color": "#223",
+      "bgcolor": "#335",
+      "locked": true
+    },
+    {
+      "id": 26,
+      "type": "ShowText|pysssss",
+      "pos": [
+        740,
+        750
+      ],
+      "size": [
+        220,
+        120
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 32,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Wildcard",
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "faithfully depicted minotaur android inspired by Aaron Horkey, (embedding:dishonored-portrait-styles:0.7), (embedding:emb-rrf2:0.7)"
+      ],
+      "color": "#223",
+      "bgcolor": "#335",
+      "locked": true
+    },
+    {
+      "id": 4,
+      "type": "EmbeddingPicker",
+      "pos": [
+        420,
+        220
+      ],
+      "size": [
+        310,
+        150
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 31,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            5
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmbeddingPicker"
+      },
+      "widgets_values": [
+        "illustration-style.pt",
+        1,
+        true,
+        ""
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "locked": true
+    },
+    {
+      "id": 3,
+      "type": "LoraLoader",
+      "pos": [
+        420,
+        50
+      ],
+      "size": [
+        315,
+        126
+      ],
       "flags": {},
       "order": 5,
       "mode": 0,
@@ -832,12 +1016,12 @@ ComfyUI Workflow Demo preset:
         {
           "name": "model",
           "type": "MODEL",
-          "link": 28
+          "link": 1
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 25
+          "link": 2
         }
       ],
       "outputs": [
@@ -845,8 +1029,7 @@ ComfyUI Workflow Demo preset:
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            29,
-            38
+            12
           ],
           "shape": 3,
           "slot_index": 0
@@ -855,30 +1038,126 @@ ComfyUI Workflow Demo preset:
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            26,
-            27
+            3,
+            4
           ],
           "shape": 3,
           "slot_index": 1
         }
       ],
-      "title": "LoRA",
       "properties": {
         "Node name for S&R": "LoraLoader"
       },
       "widgets_values": [
-        "BIOMECHA.safetensors",
-        1.35,
-        1.35
-      ]
+        "steampunkai.safetensors",
+        1.33,
+        1.33
+      ],
+      "locked": true
+    },
+    {
+      "id": 14,
+      "type": "ZSUITE_SEED_MODIFIER",
+      "pos": [
+        420,
+        600
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 20,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            22,
+            24
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ZSUITE_SEED_MODIFIER"
+      },
+      "widgets_values": [
+        1921,
+        "randomize",
+        0.1
+      ],
+      "color": "#223",
+      "bgcolor": "#335",
+      "locked": true
     }
   ],
   "links": [
     [
-      4,
+      1,
+      1,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      1,
+      3,
+      1,
+      "CLIP"
+    ],
+    [
+      3,
+      3,
+      1,
       6,
       0,
+      "CLIP"
+    ],
+    [
       4,
+      3,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      6,
+      5,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      7,
+      6,
+      0,
+      8,
       1,
       "CONDITIONING"
     ],
@@ -886,23 +1165,23 @@ ComfyUI Workflow Demo preset:
       8,
       7,
       0,
-      4,
+      8,
       2,
       "CONDITIONING"
     ],
     [
-      10,
       9,
+      2,
       0,
       10,
       0,
       "IMAGE"
     ],
     [
-      11,
-      11,
-      0,
+      10,
       9,
+      0,
+      10,
       1,
       "VAE"
     ],
@@ -910,161 +1189,137 @@ ComfyUI Workflow Demo preset:
       12,
       3,
       0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      15,
+      8,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      17,
+      9,
+      0,
+      12,
+      0,
+      "*"
+    ],
+    [
+      18,
+      12,
+      0,
+      11,
+      1,
+      "VAE"
+    ],
+    [
+      19,
+      11,
+      0,
       13,
       0,
       "IMAGE"
     ],
     [
-      13,
+      20,
       2,
-      2,
-      13,
-      1,
-      "VAE"
+      4,
+      14,
+      0,
+      "INT"
     ],
     [
+      22,
       14,
-      13,
       0,
+      15,
+      0,
+      "*"
+    ],
+    [
+      23,
+      15,
+      0,
+      8,
       4,
+      "INT"
+    ],
+    [
+      24,
+      14,
+      0,
+      19,
+      0,
+      "INT"
+    ],
+    [
+      25,
+      19,
+      0,
+      20,
+      0,
+      "FLOAT"
+    ],
+    [
+      26,
+      20,
+      0,
+      21,
+      0,
+      "STRING"
+    ],
+    [
+      27,
+      10,
+      0,
+      22,
+      0,
+      "LATENT"
+    ],
+    [
+      28,
+      22,
+      0,
+      8,
       3,
       "LATENT"
     ],
     [
-      15,
-      3,
-      3,
-      14,
-      0,
-      "STRING"
-    ],
-    [
-      16,
-      14,
-      0,
-      7,
-      1,
-      "STRING"
-    ],
-    [
-      20,
-      5,
-      0,
-      6,
-      1,
-      "STRING"
-    ],
-    [
-      23,
-      17,
-      0,
-      5,
-      0,
-      "STRING"
-    ],
-    [
+      29,
       24,
-      16,
       0,
-      17,
+      25,
       0,
       "NUMBER"
     ],
     [
-      25,
-      2,
-      1,
-      18,
-      1,
-      "CLIP"
-    ],
-    [
-      26,
-      18,
-      1,
-      6,
-      0,
-      "CLIP"
-    ],
-    [
-      27,
-      18,
-      1,
-      7,
-      0,
-      "CLIP"
-    ],
-    [
-      28,
-      2,
-      0,
-      18,
-      0,
-      "MODEL"
-    ],
-    [
-      29,
-      18,
-      0,
-      4,
-      0,
-      "MODEL"
-    ],
-    [
       30,
-      5,
+      25,
       0,
-      19,
+      23,
       0,
       "STRING"
     ],
     [
-      38,
-      18,
+      31,
+      23,
       0,
-      22,
-      0,
-      "MODEL"
-    ],
-    [
-      39,
-      22,
-      0,
-      9,
-      0,
-      "LATENT"
-    ],
-    [
-      40,
-      6,
-      0,
-      22,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      41,
-      7,
-      0,
-      22,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      42,
       4,
       0,
-      25,
-      0,
-      "LATENT"
+      "STRING"
     ],
     [
-      43,
-      25,
+      32,
+      23,
       0,
-      22,
-      3,
-      "LATENT"
+      26,
+      0,
+      "STRING"
     ]
   ],
   "groups": [],
