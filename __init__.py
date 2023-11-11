@@ -103,7 +103,7 @@ class ZSuiteSeedMod:
             "sum": ("INT", {}),
         }
 
-    RETURN_TYPES = ("INT",)  # Add this line
+    RETURN_TYPES = ("INT",)
 
     FUNCTION = "modify_seed"
     CATEGORY = "Math"
