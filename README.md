@@ -1,4 +1,4 @@
-# ZPM
+# ZSuite
 
 ![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/50782d68-e92a-465f-ac5b-91893218c0d2)
 
