@@ -3,9 +3,10 @@
 ![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/50782d68-e92a-465f-ac5b-91893218c0d2)
 
 
-- 10-11-2023 - V1.0.0 Added Prompter
-- 11-11-2023 - v2.0.0 Added Seed Modifier
-
+Version: 2.0
+- 10-11-2023 - Added Prompter
+- 11-11-2023 - Added Seed Modifier
+- 12-11-2023 - Modified Seed node to accept expressions
 
 ComfyUI Workflow preset (from screenshot):
 ```
