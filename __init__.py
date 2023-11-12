@@ -16,7 +16,11 @@
 import os
 import random
 import re
+from sympy import symbols, lambdify, Abs, sin, cos, tan, sinh, cosh, tanh, exp, log, sqrt, atan, asin, acos, cbrt
 import numpy as np
+
+from sympy.parsing.sympy_parser import parse_expr
+from sympy import Piecewise as piecewise
 
 MANIFEST = {
     "name": "ZSuite",
@@ -26,10 +30,12 @@ MANIFEST = {
     "description": "A suite of useful nodes for ComfyUI",
 }
 
-# Initialize seed and change directory
+# Initializing variables and instances
 random.seed()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+# Constants
+MAX_SEED = 2 ** 31 - 1
 
 class ZSuitePrompter:
     def __init__(self):
@@ -43,7 +49,7 @@ class ZSuitePrompter:
         return {
             "required": {
                 "text": ("STRING", {"multiline": True, "default": "__preamble__ painting made by __artist__"}),
-                "trigger": ("STRING", {"default": ""}),
+                "trigger": ("INT", {"default": 0}),
             },
         }
 
@@ -76,21 +82,25 @@ class ZSuitePrompter:
         print(f"[ZSuite] Finished: {text}")
         return (text,)
 
-
 # Seed Modifier Node
 class ZSuiteSeedMod:
     def __init__(self):
-        self.last_sum = 1  # Initialize with a default value
-
+        pass
+        
     @classmethod
     def INPUT_TYPES(cls):
         """
         Define input types for the Seed Modifier node.
         """
+      
+        # Assign default preset
+        preset_default = "abs(seed * tan(trigger) + 0.1 * abs(seed))"
+        
         return {
             "required": {
                 "seed": ("INT", {"default": 0}),
-                "modifier": ("FLOAT", {"default": 0.3, "min": 0, "max": 1, "step": 0.1}),
+                "expression": ("STRING", {"multiline": True, "default": preset_default}),
+                "trigger": ("INT", {"default": 0}),
             },
         }
 
@@ -101,36 +111,45 @@ class ZSuiteSeedMod:
         """
         return {
             "sum": ("INT", {}),
+            "dec": ("FLOAT", {}),
         }
 
-    RETURN_TYPES = ("INT",)
+    RETURN_TYPES = ("INT", "FLOAT")
 
     FUNCTION = "modify_seed"
     CATEGORY = "Math"
 
-    def modify_seed(self, seed, modifier):
+    def modify_seed(self, seed, expression, trigger):
         """
-        Modify the seed while retaining its essence with overflow check.
+        Modify the seed based on the selected expression, while retaining its essence with overflow check.
         """
-        # Calculate the modification amount
-        modification_amount = int(modifier * seed)
+        print(f"[ZSuite] Signal [{trigger}]")
 
-        # Linear interpolation between the last stored value and the new one
-        interpolated_value = int(np.interp(random.random(), [0, 1], [self.last_sum, seed + modification_amount]))
+        # Define symbols for the expression
+        sym_seed, sym_trigger = symbols('seed trigger')
 
-        # Check for overflow
-        max_int = 2**31 - 1  # Assuming 32-bit signed integer, adjust if needed
-        if interpolated_value > max_int:
-            interpolated_value = max_int
-        elif interpolated_value < -max_int:
-            interpolated_value = -max_int
+        # Create a lambda function from the expression
+        expr_function = lambdify((sym_seed, sym_trigger), expression, modules=['numpy'])
+
+        # Evaluate the expression using provided seed and trigger
+        modification_amount = expr_function(seed, trigger)
+        
+         # Save both integer and decimal representations
+        modification_amount_integer = int(modification_amount)
+        modification_amount_decimal = float(modification_amount)
+        # Save end product
+        interpolated_value = modification_amount_integer
+
+        # Use min and max to handle overflow with wraparound to 0
+        interpolated_value = interpolated_value % (MAX_SEED + 1)
+        
+        print(f"[ZSuite] Input: {expression} [{seed},{trigger}]")
+        print(f"[ZSuite] Output: {interpolated_value}")
 
         # Store the outcome for the next cycle
         self.last_sum = interpolated_value
 
-        return (interpolated_value,)
-
-
+        return (interpolated_value,modification_amount_decimal)
 
 # NODE_CLASS_MAPPINGS
 if "NODE_CLASS_MAPPINGS" not in globals():
@@ -140,7 +159,9 @@ if "NODE_DISPLAY_NAME_MAPPINGS" not in globals():
     NODE_DISPLAY_NAME_MAPPINGS = {}
 
 # FINALIZE
-NODE_CLASS_MAPPINGS["ZSUITE_PROMPTER"] = ZSuitePrompter
-NODE_DISPLAY_NAME_MAPPINGS["ZSUITE_PROMPTER"] = "ZSuite Prompter"
-NODE_CLASS_MAPPINGS["ZSUITE_SEED_MODIFIER"] = ZSuiteSeedMod
-NODE_DISPLAY_NAME_MAPPINGS["ZSUITE_SEED_MODIFIER"] = "ZSuite Seed Modifier"
+NODE_CLASS_MAPPINGS["ZSUITE_PROMPTER"]              = ZSuitePrompter
+NODE_CLASS_MAPPINGS["ZSUITE_SEED_MODIFIER"]         = ZSuiteSeedMod
+
+NODE_DISPLAY_NAME_MAPPINGS["ZSUITE_PROMPTER"]       = "ZSuite Prompter"
+NODE_DISPLAY_NAME_MAPPINGS["ZSUITE_SEED_MODIFIER"]  = "ZSuite Seed Modifier"
+
