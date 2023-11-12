@@ -8,6 +8,9 @@ Version: 2.0
 - 11-11-2023 - Added Seed Modifier
 - 12-11-2023 - Modified Seed node to accept expressions
 
+Next task:
+- Seed node: Implement interpolation for smooth linear seed surfing
+
 ComfyUI Workflow preset (from screenshot):
 ```
 {
