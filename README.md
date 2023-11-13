@@ -1,15 +1,20 @@
 # ZSuite
 
+
 ![afbeelding](https://github.com/TheBarret/ZPM/assets/25234371/50782d68-e92a-465f-ac5b-91893218c0d2)
+
+SDR-RTL Node Demo
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/eea16679-3a46-462a-8ea1-90ddbb33457f)
+
+SDR-RTL Server side
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/5bc7faad-f399-4f0a-bdaf-90de05c27156)
 
 
 Version: 2.0
 - 10-11-2023 - Added Prompter
 - 11-11-2023 - Added Seed Modifier
 - 12-11-2023 - Modified Seed node to accept expressions
-
-Next task:
-- Seed node: Implement interpolation for smooth linear seed surfing
+- 13-11-2023 - Added Latent Noise Provider (Transforming RF Signals) using `RTL_TCP`
 
 ComfyUI Workflow preset (from screenshot):
 ```
