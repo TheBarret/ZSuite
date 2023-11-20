@@ -26,6 +26,8 @@ The node uses a `trigger` as input from any `integer` value type, to enforce a n
 
 # ZSuite - RF Node
 
+*!!You do need an actual RTL-SDR device and a shell that can host the service for this node to work!!*
+
 The data capture in the `RF Node` is `4096 bytes / cycle` governed by `duration` in seconds.
 If the data length is smaller then the Latent shape it will reset to index 0.
 
@@ -72,7 +74,4 @@ Commandline for listening:
 
 After this you setup the `RF Noise` node to use this ip and port.
   
- Important:
- - You do need a RTL-SDR device for this node to work
-
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/c333f042-ff4c-41f7-9581-c667fe02db82)
