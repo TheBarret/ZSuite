@@ -47,7 +47,7 @@ Then the data is processed using `numpy` to normalize the data in workable forma
             data_scaled = 2 * data_scaled - 1
             s["samples"].view(-1)[i] = data_scaled
 ```
-Remark: Im sure this can be doen better, feel free to tell me if so.
+Remark: Im sure this can be done better, feel free to tell me if so.
 
 # RTL Device Setup
 
