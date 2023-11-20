@@ -7,7 +7,7 @@ Version: 2.0
 - 10-11-2023 - Initial Release
 - 11-11-2023 - Added Seed Modifier
 - 12-11-2023 - Modified Seed node to accept expressions
-- 13-11-2023 - Added Latent Noise Provider (Transforming RF Signals) using `RTL_TCP`
+- 13-11-2023 - Added Latent Noise Provider (Transforming Ambient RF Signals using `RTL_TCP` as noise)
 
 
 # ZSuite - Prompter
