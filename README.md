@@ -25,3 +25,5 @@ After this you setup the `RF Noise` node to use this ip and port.
   
  Important:
  - You do need a RTL-SDR device for this node to work
+
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/c333f042-ff4c-41f7-9581-c667fe02db82)
