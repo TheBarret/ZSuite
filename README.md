@@ -26,7 +26,7 @@ The node uses a `trigger` as input from any `integer` value type, to enforce a n
 
 # ZSuite - RF Node
 
-*!!You do need an actual RTL-SDR device and a shell that can host the service for this node to work!!*
+__!!You do need an actual RTL-SDR device and a shell that can host the service for this node to work!!__
 
 The data capture in the `RF Node` is `4096 bytes / cycle` governed by `duration` in seconds.
 If the data length is smaller then the Latent shape it will reset to index 0.
