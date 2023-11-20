@@ -9,6 +9,9 @@ Version: 2.0
 - 12-11-2023 - Modified Seed node to accept expressions
 - 13-11-2023 - Added Latent Noise Provider (Transforming RF Signals) using `RTL_TCP`
 
+The data capture in the `RF Node` is `4096 bytes / cycle` governed by `duration` in seconds.
+If the data length is smaller then the Latent shape it will reset to index 0.
+
 # RTL Device Setup
 
 For debian:
