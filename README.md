@@ -9,8 +9,45 @@ Version: 2.0
 - 12-11-2023 - Modified Seed node to accept expressions
 - 13-11-2023 - Added Latent Noise Provider (Transforming RF Signals) using `RTL_TCP`
 
+
+# ZSuite - Prompter
+
+This node uses files to randomize pre-defined sorted subjects of random things.
+
+Example line:
+
+`__preable__ painting by __artist__`
+
+This prompt will be processed with random line form the file called `preamble.txt` in the folder:
+
+`.\comfyui\custom_nodes\Zephys\nodes\blocks\.*txt`
+
+The node uses a `trigger` as input from any `integer` value type, to enforce a new prompt output.
+
+# ZSuite - RF Node
+
 The data capture in the `RF Node` is `4096 bytes / cycle` governed by `duration` in seconds.
 If the data length is smaller then the Latent shape it will reset to index 0.
+
+Then the data is processed using `numpy` to normalize the data in workable format shown here:
+
+```
+        # Ensure noise is a NumPy array
+        noise = np.array(noise)
+
+        # Obtain min/max values from noise data
+        data_min = np.min(noise)
+        data_max = np.max(noise)
+
+        # Scale and inject noise into latent samples
+        print(f"[ZSuite] Injecting noise...")
+        for i in range(s["samples"].numel()):
+            raw = float(strength * float(noise[i % noise.size]))
+            data_scaled = (raw - data_min) / (data_max - data_min)
+            data_scaled = 2 * data_scaled - 1
+            s["samples"].view(-1)[i] = data_scaled
+```
+Remark: Im sure this can be doen better, feel free to tell me if so.
 
 # RTL Device Setup
 
