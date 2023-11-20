@@ -47,7 +47,16 @@ Then the data is processed using `numpy` to normalize the data in workable forma
             data_scaled = 2 * data_scaled - 1
             s["samples"].view(-1)[i] = data_scaled
 ```
-Remark: Im sure this can be done better, feel free to tell me if so.
+(Prob poorly executed, my bad!)
+
+If you desire to change the default device parameters locate the file:
+
+`.\comfyui\custom_nodes\Zephys\nodes\ZS_Rtlsdr.py`
+
+And open with a (code/text) editor and look for this constant definition header:
+
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/b13f7ca0-5b76-4210-9c2d-0636c4400721)
+
 
 # RTL Device Setup
 
