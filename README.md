@@ -116,6 +116,10 @@ To better understand the RF-based settings in ZSuite, consider the following exp
 
 - **Gain Values Significance:**
   - Gain values control the amplification level. Higher gain may improve weak signal reception but can introduce noise. Auto (default) adjusts gain automatically.
+    
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/e7b867df-27b7-4b60-885a-1d92840a9c9a)
+
+
 
 - **Samplerates Impact:**
   - Samplerates determine how many samples per second the RTL-SDR device collects. Higher rates provide more detailed signal information but may increase processing load.
