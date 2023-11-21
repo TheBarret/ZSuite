@@ -34,7 +34,7 @@ the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
 
 ![afbeelding](https://hackaday.com/wp-content/uploads/2017/09/dongle.png)
 
-Using RF ambient nose we can utilize this as random data abnd the idea is that this will be more then sufficient for robust randomizer provider.
+Using RF ambient nose we can utilize this as random data and the idea is that this will be more then sufficient for robust randomizer provider.
 We can obtain from this from tuning our device in any (available) frequency, you could even tune into a station and use that amplitude or signal.
 
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/44123c41-493e-41bf-815b-7c700da6d134)
