@@ -74,4 +74,36 @@ Users can customize default device parameters by editing the `ZS_Rtlsdr.py` file
 
 The constant definition header in this file contains configurable settings for the RF Node.
 
+**SDR RTL Device Parameters Explained**
+
+To better understand the RF-based settings in ZSuite, consider the following explanations:
+
+1. **Frequency (Frequnecy):**
+   - *Definition:* Represents the operating frequency of the RTL-SDR device.
+   - *Range:* Typically between 5KHz and 1.7GHz.
+   - *Unit:* Measured in Hertz (`Hz`).
+
+2. **Gain Values:**
+   - *Definition:* Refers to the amplification applied to the received signal.
+   - *Options:* 0.0, 0.9, 1.4, 2.7, 3.7, 7.7, 8.7, 12.5, 14.4, 15.7, 16.6, 19.7, 20.7, 22.9, 25.4, 28.0, 29.7, 32.8, 33.8, 36.4, 37.2, 38.6, 40.2, 42.1, 43.4, 43.9, 44.5, 48.0, 49.6.
+   - *Default:* 0 (auto).
+
+3. **Samplerates:**
+   - *Definition:* Indicates the rate at which the RTL-SDR device samples the incoming signal.
+   - *Options:* 0.25, 1.024, 1.536, 1.792, 1.92, 2.048, 2.16, 2.56, 2.88, 3.2 MSps (Mega Samples per second).
+   - *Default:* 1.024 MSps.
+
+**Additional Information:**
+
+- **Frequency Range Explanation:**
+  - The frequency range is the span of frequencies the RTL-SDR device can capture. It is crucial to set this parameter based on the type of signals you intend to receive.
+
+- **Gain Values Significance:**
+  - Gain values control the amplification level. Higher gain may improve weak signal reception but can introduce noise. Auto (default) adjusts gain automatically.
+
+- **Samplerates Impact:**
+  - Samplerates determine how many samples per second the RTL-SDR device collects. Higher rates provide more detailed signal information but may increase processing load.
+
+Understanding and adjusting these settings allow users to optimize the RTL-SDR device for specific signal types and environmental conditions, enhancing the effectiveness of RF signal processing in ZSuite.
+
 By following these steps and understanding the underlying processes, users can effectively set up and utilize the RF Node in ZSuite for their specific needs.
