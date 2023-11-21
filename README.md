@@ -82,7 +82,9 @@ Within the ZSuite framework, the RF Node operates on pre-defined configurations 
 
 **Configurability:**
 
-Users can customize default device parameters by editing the `ZS_Rtlsdr.py` file located at `.\comfyui\custom_nodes\Zephys\nodes\`.
+Users can customize default device parameters by editing the `ZS_Rtlsdr.py`,
+
+this file is located at `.\comfyui\custom_nodes\Zephys\nodes\`.
 
 The constant definition header in this file contains configurable settings for the RF Node.
 
