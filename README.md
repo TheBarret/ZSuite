@@ -111,7 +111,8 @@ To better understand the RF-based settings in ZSuite, consider the following exp
 
 - **Frequency Range Explanation:**
   - The frequency range is the span of frequencies the RTL-SDR device can capture. It is crucial to set this parameter based on the type of signals you intend to receive.
-    (For exzample: one could tune in on `118Mhz` or `118000000`hz and in this band all or most ATC flight communications take place)
+    
+    (Example: one could tune in on `118Mhz` or `118000000`hz and in this range most if not all, local ATC flight communications take place)
 
 - **Gain Values Significance:**
   - Gain values control the amplification level. Higher gain may improve weak signal reception but can introduce noise. Auto (default) adjusts gain automatically.
