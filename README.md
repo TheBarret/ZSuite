@@ -116,7 +116,12 @@ To better understand the RF-based settings in ZSuite, consider the following exp
 
 **Gain Values Significance:**
   - Gain values control the amplification level. Higher gain may improve weak signal reception but can introduce noise. Auto (default) adjusts gain automatically.
-    
+
+The series can be expressed as a piecewise function that combines two arithmetic progressions.
+```
+[0.0, 0.9, 1.4, 2.7, 3.7, 7.7, 8.7, 12.5, 14.4, 15.7, 16.6, 19.7, 20.7, 22.9, 25.4, 28.0, 29.7, 32.8, 33.8, 36.4, 37.2, 38.6, 40.2, 42.1, 43.4, 43.9, 44.5, 48.0, 49.6]
+```
+
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/f8c3bac2-e8f8-4d9b-8b48-b85331b9eb39)
 
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/823529b3-aabe-4f57-a70a-fc1c1d8f95ff)
