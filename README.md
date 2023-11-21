@@ -31,7 +31,8 @@ me to make sure the `Prompter` gets processed each time you hit `Generate`.
 
 # ZSuite - RF Node
 
-*This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.*
+*This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.
+the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
 
 **Server Hosting and RTL_TCP Service:**
 
