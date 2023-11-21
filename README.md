@@ -18,7 +18,7 @@ Example line:
 
 This prompt will be processed with random line form the file called `preamble.txt` and `artists.txt` in the folder:
 
-`.\comfyui\custom_nodes\Zephys\nodes\blocks\.*txt`
+`.\comfyui\custom_nodes\Zephys\nodes\blocks\*.txt`
 
 You can create new or change any `txt` files in this folder to customize your wishes
 
