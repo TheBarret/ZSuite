@@ -1,4 +1,4 @@
-# ZSuite
+<img width="648" alt="Screenshot 2023-04-18 at 1 48 57 PM" src="https://github.com/TheBarret/ZSuite/assets/25234371/1a8d5428-3ec6-4740-8bc1-cbc7184d26eb"># ZSuite
 
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/309a5f2c-81cb-496c-bb79-a34b56d08807)
 
@@ -35,6 +35,13 @@ me to make sure the `Prompter` gets processed each time you hit `Generate`.
 the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
 
 ![afbeelding](https://hackaday.com/wp-content/uploads/2017/09/dongle.png)
+
+Using RF ambient nose we can utilize this as random data abnd the idea is that this will be more then sufficient for robust randomizer provider.
+We can obtain from this from tuning our device in any (available) frequency, you could even tune into a station and use that amplitude or signal.
+
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/44123c41-493e-41bf-815b-7c700da6d134)
+
+
 
 **Server Hosting and RTL_TCP Service:**
 
