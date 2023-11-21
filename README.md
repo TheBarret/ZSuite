@@ -1,5 +1,3 @@
-<img width="648" alt="Screenshot 2023-04-18 at 1 48 57 PM" src="https://github.com/TheBarret/ZSuite/assets/25234371/1a8d5428-3ec6-4740-8bc1-cbc7184d26eb"># ZSuite
-
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/309a5f2c-81cb-496c-bb79-a34b56d08807)
 
 
