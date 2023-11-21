@@ -43,6 +43,8 @@ To facilitate communication with the RTL-SDR device, a server must be set up. Th
 1. **RTL_TCP Installation:**
    - Follow the Debian-specific instructions provided in the [RTL_TCP Manpage](https://manpages.debian.org/testing/rtl-sdr/rtl_tcp.1.en.html).
    - Execute the command: `rtl_tcp -a <ip> -p <port> -d 0` to initiate the service on the specified IP and port.
+   - The IP is to be expected either LAN (network) or Internet ip address, difference is one is local only and the other worldwide.
+   - Port can be anything you wish, I do advice to use a high-range, because in Linux environment most ports lower then `< 1024` are reserved and restricted.
 
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/fd5e517c-c3bd-4ad6-a219-c61648bf757c)
 
