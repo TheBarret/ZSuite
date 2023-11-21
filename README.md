@@ -3,7 +3,7 @@
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/309a5f2c-81cb-496c-bb79-a34b56d08807)
 
 
-Version: 2.0
+Version: 2.0.0
 - 10-11-2023 - Initial Release
 - 11-11-2023 - Added Seed Modifier
 - 12-11-2023 - Modified Seed node to accept expressions
@@ -16,62 +16,59 @@ This node uses files to randomize pre-defined sorted subjects of random things.
 
 Example line:
 
-`__preable__ painting by __artist__`
+`__preamble__ painting by __artist__`
 
-This prompt will be processed with random line form the file called `preamble.txt` in the folder:
+This prompt will be processed with random line form the file called `preamble.txt` and `artists.txt` in the folder:
 
 `.\comfyui\custom_nodes\Zephys\nodes\blocks\.*txt`
 
+You can create new or change any `txt` files in this folder to customize your wishes
+
 The node uses a `trigger` as input from any `integer` value type, to enforce a new prompt output.
+I often myself use a `Counter` node that comes almost by default for math operations, it allows
+me to make sure the `Prompter` gets processed each time you hit `Generate`.
+
 
 # ZSuite - RF Node
 
-__!!You do need an actual RTL-SDR device and a shell that can host the service for this node to work!!__
+*This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.*
 
-The data capture in the `RF Node` is `4096 bytes / cycle` governed by `duration` in seconds.
-If the data length is smaller then the Latent shape it will reset to index 0.
+**Server Hosting and RTL_TCP Service:**
 
-Then the data is processed using `numpy` to normalize the data in workable format shown here:
+To facilitate communication with the RTL-SDR device, a server must be set up. The RTL_TCP service is employed for this purpose. Here's a breakdown of the setup:
 
-```
-        # Ensure noise is a NumPy array
-        noise = np.array(noise)
+1. **RTL_TCP Installation:**
+   - Follow the Debian-specific instructions provided in the [RTL_TCP Manpage](https://manpages.debian.org/testing/rtl-sdr/rtl_tcp.1.en.html).
+   - Execute the command: `rtl_tcp -a <ip> -p <port> -d 0` to initiate the service on the specified IP and port.
 
-        # Obtain min/max values from noise data
-        data_min = np.min(noise)
-        data_max = np.max(noise)
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/fd5e517c-c3bd-4ad6-a219-c61648bf757c)
 
-        # Scale and inject noise into latent samples
-        print(f"[ZSuite] Injecting noise...")
-        for i in range(s["samples"].numel()):
-            raw = float(strength * float(noise[i % noise.size]))
-            data_scaled = (raw - data_min) / (data_max - data_min)
-            data_scaled = 2 * data_scaled - 1
-            s["samples"].view(-1)[i] = data_scaled
-```
-(Prob poorly executed, my bad!)
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/c333f042-ff4c-41f7-9581-c667fe02db82)
 
-If you desire to change the default device parameters locate the file:
+**Why Server Setup is Necessary:**
 
-`.\comfyui\custom_nodes\Zephys\nodes\ZS_Rtlsdr.py`
+The RTL-SDR device communicates via TCP/IP, necessitating the establishment of a server. This server acts as an intermediary, allowing ZSuite to access the data stream from the RTL-SDR device. The specified IP and port parameters ensure a seamless connection between the RF Node in ZSuite and the RTL-SDR device.
 
-And open with a (code/text) editor and look for this constant definition header:
+**Predefined Configurations and Latent Noise Processing:**
+
+Within the ZSuite framework, the RF Node operates on pre-defined configurations and processes data using the following steps:
+
+1. **Data Capture Parameters:**
+   - The RF Node captures data at a rate of (default) `4096 bytes per cycle`.
+   - The duration parameter governs capture length of the capturing.
 
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/b13f7ca0-5b76-4210-9c2d-0636c4400721)
 
 
-# RTL Device Setup
+2. **Latent Noise Processing:**
+   - If the captured data length is smaller than the specified Latent shape, it resets to index 0.
+   - The captured data undergoes processing using the `numpy` library to perform normalization.
+   - Normalization involves scaling and injecting noise into latent samples, ensuring the data is in a workable format.
 
-For debian:
+**Configurability:**
 
-https://manpages.debian.org/testing/rtl-sdr/rtl_tcp.1.en.html
+Users can customize default device parameters by editing the `ZS_Rtlsdr.py` file located at `.\comfyui\custom_nodes\Zephys\nodes\`.
 
-Commandline for listening:
+The constant definition header in this file contains configurable settings for the RF Node.
 
-```user@server:~$ rtl_tcp -a <ip> -p <port> -d 0```
-
-![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/fd5e517c-c3bd-4ad6-a219-c61648bf757c)
-
-After this you setup the `RF Noise` node to use this ip and port.
-  
-![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/c333f042-ff4c-41f7-9581-c667fe02db82)
+By following these steps and understanding the underlying processes, users can effectively set up and utilize the RF Node in ZSuite for their specific needs.
