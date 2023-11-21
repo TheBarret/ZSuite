@@ -32,6 +32,9 @@ me to make sure the `Prompter` gets processed each time you hit `Generate`.
 *This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.
 the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
 
+The protocol netcode is adopted from and written by `Paul Tagliamonte` (2020-11-03: https://hz.tools/rtl_tcp/)
+
+
 ![afbeelding](https://hackaday.com/wp-content/uploads/2017/09/dongle.png)
 
 
