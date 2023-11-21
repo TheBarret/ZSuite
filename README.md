@@ -109,19 +109,19 @@ To better understand the RF-based settings in ZSuite, consider the following exp
 
 **Additional Information:**
 
-- **Frequency Range Explanation:**
+**Frequency Range Explanation:**
   - The frequency range is the span of frequencies the RTL-SDR device can capture. It is crucial to set this parameter based on the type of signals you intend to receive.
     
     (Example: one could tune in on `118Mhz` or `118000000`hz and in this range most if not all, local ATC flight communications take place)
 
-- **Gain Values Significance:**
+**Gain Values Significance:**
   - Gain values control the amplification level. Higher gain may improve weak signal reception but can introduce noise. Auto (default) adjusts gain automatically.
     
-![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/e7b867df-27b7-4b60-885a-1d92840a9c9a)
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/f8c3bac2-e8f8-4d9b-8b48-b85331b9eb39)
 
+![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/823529b3-aabe-4f57-a70a-fc1c1d8f95ff)
 
-
-- **Samplerates Impact:**
+**Samplerates Impact:**
   - Samplerates determine how many samples per second the RTL-SDR device collects. Higher rates provide more detailed signal information but may increase processing load.
 
 Understanding and adjusting these settings allow users to optimize the RTL-SDR device for specific signal types and environmental conditions, enhancing the effectiveness of RF signal processing in ZSuite.
