@@ -27,10 +27,11 @@ I often myself use a `Counter` node that comes almost by default for math operat
 me to make sure the `Prompter` gets processed each time you hit `Generate`.
 
 
-# ZSuite - RF Node
+# ZSuite - RF Node (Testing Phase)
 
-*This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.
+- *This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.
 the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
+- *This node is still a prototype, features may change in the future*
 
 The protocol netcode is adopted from and written by `Paul Tagliamonte` (2020-11-03: https://hz.tools/rtl_tcp/)
 
