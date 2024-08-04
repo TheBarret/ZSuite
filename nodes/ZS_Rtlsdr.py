@@ -89,28 +89,32 @@ class ZSuiteNoise:
         return (s,)
 
     def collect_rtl_noise(self, host, port, duration):
-        # Collect RTL-SDR noise data from specified host and port
-        print(f"[ZSuite] Opening connection...")
-
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(5)  # Set a shorter timeout for testing
-            try:
-                s.connect((host, port))
-            except Exception as e:
-                print(f"[ZSuite] Error caught: {e}")
-                return np.array([]), np.array([])
-
-            # Send RTL-SDR parameters to the device
-            print(f"[ZSuite] Sending parameters [{DEVICE_FREQUENCY},{DEVICE_IQ},{DEVICE_TUNER},{DEVICE_GAIN}]")
-            self.send_command(s, 0x01, DEVICE_FREQUENCY)
-            self.send_command(s, 0x02, DEVICE_IQ)
-            self.send_command(s, 0x03, DEVICE_TUNER)
-            self.send_command(s, 0x04, DEVICE_GAIN)
-
-            # Collect noise data from the device
-            noise_data = self.collect_data(s, duration)
-
-        return self.prepare_noise(noise_data)
+        try:
+            # Collect RTL-SDR noise data from specified host and port
+            print(f"[ZSuite] Opening connection...")
+    
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(5)  # Set a shorter timeout for testing
+                try:
+                    s.connect((host, port))
+                except Exception as e:
+                    print(f"[ZSuite] Error caught: {e}")
+                    return np.array([]), np.array([])
+    
+                # Send RTL-SDR parameters to the device
+                print(f"[ZSuite] Sending parameters [{DEVICE_FREQUENCY},{DEVICE_IQ},{DEVICE_TUNER},{DEVICE_GAIN}]")
+                self.send_command(s, 0x01, DEVICE_FREQUENCY)
+                self.send_command(s, 0x02, DEVICE_IQ)
+                self.send_command(s, 0x03, DEVICE_TUNER)
+                self.send_command(s, 0x04, DEVICE_GAIN)
+    
+                # Collect noise data from the device
+                noise_data = self.collect_data(s, duration)
+    
+            return self.prepare_noise(noise_data)
+        except Exception as e:
+            print(f"[ZSuite] Error caught: {e}")
+            return np.array([]), np.array([])
 
     def send_command(self, sock, opcode, value):
         # Send command to the RTL-SDR device
