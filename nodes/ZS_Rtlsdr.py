@@ -89,6 +89,7 @@ class ZSuiteNoise:
         return (s,)
 
     def collect_rtl_noise(self, host, port, duration):
+       try:
         # Collect RTL-SDR noise data from specified host and port
         print(f"[ZSuite] Opening connection...")
 
@@ -111,6 +112,9 @@ class ZSuiteNoise:
             noise_data = self.collect_data(s, duration)
 
         return self.prepare_noise(noise_data)
+    except Exception as e:
+        print(f"[ZSuite] Error caught: {e}")
+        return np.array([]), np.array([])
 
     def send_command(self, sock, opcode, value):
         # Send command to the RTL-SDR device
