@@ -11,7 +11,7 @@ Example line:
 
 `__preamble__ painting by __artist__`
 
-This prompt will be processed with random line form the file called `preamble.txt` and `artists.txt` in the folder:
+This prompt will be processed with random line fetched from a file called `preamble.txt` and `artists.txt` in the folder:
 
 `.\comfyui\custom_nodes\Zephys\nodes\blocks\*.txt`
 
