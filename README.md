@@ -1,8 +1,6 @@
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/309a5f2c-81cb-496c-bb79-a34b56d08807)
 
 
-Base version: 2 stable (wip)
-
 # ZSuite - Prompter
 
 This node uses files to randomize pre-defined sorted subjects of random things.
@@ -22,7 +20,7 @@ I often myself use a `Counter` node that comes almost by default for math operat
 me to make sure the `Prompter` gets processed each time you hit `Generate`.
 
 
-# ZSuite - RF Node (Testing Phase)
+# ZSuite - RF Node (PoC)
 
 - *This section explains the functioning of the RF Node within ZSuite, emphasizing the need for an RTL-SDR device, server setup, and predefined configurations.
 the rtl_tcp is an I/Q spectrum server for RTL2832 based DVB-T receivers*
