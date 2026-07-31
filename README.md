@@ -1,4 +1,9 @@
+
+
 ![afbeelding](https://github.com/TheBarret/ZSuite/assets/25234371/309a5f2c-81cb-496c-bb79-a34b56d08807)
+
+
+## Warning: very outdated code, do not use!
 
 
 # ZSuite - Prompter
