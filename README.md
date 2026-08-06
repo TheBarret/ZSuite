@@ -17,7 +17,7 @@ Example line:
 
 This prompt will be processed with random line fetched from a file called `preamble.txt` and `artists.txt` in the folder:
 
-`.\comfyui\custom_nodes\Zephys\nodes\blocks\*.txt`
+`.\comfyui\custom_nodes\ZSuite\nodes\blocks\*.txt`
 
 You can create new or change any `txt` files in this folder to customize your wishes
 
@@ -84,7 +84,7 @@ Within the ZSuite framework, the RF Node operates on pre-defined configurations 
 
 Users can customize default device parameters by editing the `ZS_Rtlsdr.py`,
 
-this file is located at `.\comfyui\custom_nodes\Zephys\nodes\`.
+this file is located at `.\comfyui\custom_nodes\ZSuite\nodes\`.
 
 The constant definition header in this file contains configurable settings for the RF Node.
 

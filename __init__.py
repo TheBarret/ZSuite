@@ -26,6 +26,6 @@ if "NODE_DISPLAY_NAME_MAPPINGS" not in globals():
 for node in os.listdir(os.path.dirname(__file__) + os.sep + 'nodes'):
     if node.startswith('ZS_'):
         node = node.split('.')[0]
-        node_import = importlib.import_module('custom_nodes.Zephys.nodes.' + node)
+        node_import = importlib.import_module('custom_nodes.ZSuite.nodes.' + node)
         print(f"[ZSuite] Loading {node}...")
         NODE_CLASS_MAPPINGS.update(node_import.NODE_CLASS_MAPPINGS)
