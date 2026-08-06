@@ -2,7 +2,7 @@
 name = "zsuite"
 description = "Nodes:Prompter, RF Noise, SeedMod."
 version = "1.0.0"
-license = "LICENSE"
+license = { file = "LICENSE" }
 
 [project.urls]
 Repository = "https://github.com/TheBarret/ZSuite"
